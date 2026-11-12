@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Миний HTML лаборатори</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,Arial,sans-serif;background:#f1f5fb;color:#172b55}header{background:#152858;color:#fff;padding:18px 24px}header h1{font-size:24px;margin:0 0 5px}header p{margin:0;color:#cbdcfb;font-size:14px}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:13px 20px;background:white;border-bottom:1px solid #dfe6f0}button{border:0;border-radius:9px;background:#1b69b2;color:white;cursor:pointer;padding:10px 14px;font-weight:700}button.secondary{background:#e6effb;color:#173c70}button:focus-visible{outline:3px solid orange}main{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;min-height:70vh}.pane{display:flex;flex-direction:column;min-height:460px;background:white;border:1px solid #dce5f2;border-radius:13px;overflow:hidden}.pane h2{font-size:16px;margin:0;padding:12px 16px;background:#eaf1fb}textarea{width:100%;flex:1;resize:vertical;border:0;padding:16px;outline:none;background:#152858;color:#d5f0ff;font:15px/1.55 Consolas,monospace;tab-size:2}iframe{width:100%;flex:1;border:0;background:white}footer{padding:12px 20px;font-size:13px;color:#566987}@media(max-width:720px){main{grid-template-columns:1fr}.pane{min-height:310px}}
+</style>
+</head>
+<body>
+<header><h1>💻 Миний HTML лаборатори</h1><p>Кодоо бичээд “Харах” товчийг дарна уу.</p></header>
+<div class="toolbar"><button id="run">▶ Харах</button><button id="save">⬇ HTML татах</button><button id="example" class="secondary">Жишээ код</button><button id="clear" class="secondary">Цэвэрлэх</button><label style="margin-left:auto;font-size:13px"><input type="checkbox" id="auto" checked> Автоматаар харах</label></div>
+<main><section class="pane"><h2>✏️ HTML код</h2><textarea id="code" spellcheck="false" aria-label="HTML код"></textarea></section><section class="pane"><h2>🌐 Веб хуудасны харагдац</h2><iframe id="preview" sandbox="allow-scripts" title="Веб харагдац"></iframe></section></main>
+<footer>Интернэтгүйгээр ажиллана. “HTML татах” товч нь таны кодыг .html файл болгон хадгална. Зураг ашиглах бол зурагтай файлаа ижил хавтсанд байрлуулаарай.</footer>
+<script>
+const code=document.querySelector('#code'), preview=document.querySelector('#preview');
+const starter='<h1>Сайн байна уу, хүүхдүүдээ!</h1>\n<p>Энэ бол миний анхны веб хуудас.</p>';
+code.value=starter;
+function render(){preview.srcdoc=code.value}
+document.querySelector('#run').onclick=render;
+document.querySelector('#example').onclick=()=>{code.value=starter;render()};
+document.querySelector('#clear').onclick=()=>{code.value='';render()};
+code.addEventListener('input',()=>{if(document.querySelector('#auto').checked)render()});
+document.querySelector('#save').onclick=()=>{const blob=new Blob([code.value],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='test.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+render();
+</script>
+</body></html>
